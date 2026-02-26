@@ -1,583 +1,258 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>serie-cafe — Mini-série</title>
-  <meta name="description" content="Accès réservé clients. Un mini-épisode exclusif débloqué avec votre boisson." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SERIE-CAFE — Grey Area</title>
 
-  <!--
-    ASTUCE IMAGES (pour tester VOS PHOTOS/FRAMES)
-    1) Uploadez vos images dans le repo (Add file -> Upload files)
-       ex: cover.jpg, t1.jpg, t2.jpg, t3.jpg
-    2) Remplacez dans le CSS/HTML:
-       - hero background: url("./cover.jpg")
-       - thumbnails: url("./t1.jpg") etc
-  -->
+<style>
+:root{
+  --bg:#0b0b10;
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.65);
+  --accent:#e50914;
+}
 
-  <style>
-    :root{
-      --bg:#0b0b10;
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.68);
-      --muted2:rgba(255,255,255,.46);
-      --stroke:rgba(255,255,255,.12);
-      --radius:18px;
-      --shadow:0 18px 60px rgba(0,0,0,.55);
-      --accent:#e50914;     /* vibe Netflix */
-      --accent2:#ff2ea6;    /* twist tropical */
-      --max:1200px;
-    }
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x:hidden;
-    }
+/* HEADER */
+.topbar{
+  position:fixed;
+  top:0; left:0; right:0;
+  padding:14px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:linear-gradient(to bottom,rgba(0,0,0,.85),rgba(0,0,0,.2),transparent);
+  z-index:10;
+}
+.brand{
+  display:flex; align-items:center; gap:10px;
+}
+.logo{
+  width:32px; height:32px;
+  border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),#ff2ea6);
+}
+.brand strong{
+  font-size:13px;
+  letter-spacing:.1em;
+}
+.brand span{
+  font-size:11px;
+  color:var(--muted);
+}
 
-    /* Topbar */
-    .topbar{
-      position:fixed; top:0; left:0; right:0;
-      z-index:50;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px;
-      padding:14px 18px;
-      background: linear-gradient(to bottom, rgba(0,0,0,.76), rgba(0,0,0,.18), transparent);
-      backdrop-filter: blur(10px);
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width:220px;
-    }
-    .mark{
-      width:34px; height:34px;
-      border-radius:10px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: 0 12px 30px rgba(229,9,20,.18);
-    }
-    .brandText{line-height:1.05}
-    .brandText strong{
-      display:block;
-      font-size:13px;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.88);
-    }
-    .brandText span{
-      display:block;
-      margin-top:4px;
-      font-size:12px;
-      color:var(--muted2);
-    }
+/* HERO */
+.hero{
+  padding-top:100px;
+  padding-bottom:60px;
+  min-height:80vh;
+  display:flex;
+  align-items:flex-end;
+  background:
+    radial-gradient(1000px 600px at 20% 30%, rgba(229,9,20,.25), transparent 60%),
+    radial-gradient(1000px 600px at 80% 10%, rgba(255,46,166,.15), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.95));
+}
+.hero-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px;
+}
+.label{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(0,0,0,.5);
+  border:1px solid rgba(255,255,255,.15);
+  font-size:12px;
+}
+h1{
+  font-size:clamp(32px,5vw,58px);
+  margin:16px 0 10px;
+}
+.desc{
+  max-width:550px;
+  font-size:14px;
+  color:var(--muted);
+}
+.actions{
+  margin-top:20px;
+}
+.btn{
+  padding:12px 20px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+}
+.btn-play{
+  background:white;
+  color:black;
+}
 
-    .nav{
-      display:none;
-      align-items:center;
-      gap:14px;
-      font-size:13px;
-    }
-    .nav a{ text-decoration:none; color:rgba(255,255,255,.74); }
-    .nav a:hover{ color:rgba(255,255,255,.92); }
+/* EPISODES ROW */
+.row{
+  max-width:1100px;
+  margin:40px auto;
+  padding:0 20px;
+}
+.row h2{
+  font-size:18px;
+  margin-bottom:15px;
+}
+.cards{
+  display:flex;
+  gap:16px;
+}
+.card{
+  width:200px;
+  height:120px;
+  border-radius:12px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  display:flex;
+  align-items:flex-end;
+  padding:12px;
+  font-size:13px;
+  color:var(--muted);
+}
 
-    @media (min-width: 920px){ .nav{ display:flex; } }
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(10px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:100;
+}
+.modal.open{display:flex;}
+.modal-card{
+  width:100%;
+  max-width:900px;
+  border-radius:20px;
+  overflow:hidden;
+  background:black;
+  border:1px solid rgba(255,255,255,.15);
+}
+.modal-top{
+  padding:12px 16px;
+  background:rgba(0,0,0,.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.close{
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  padding:6px 12px;
+  border-radius:999px;
+  cursor:pointer;
+  color:white;
+}
+.playerWrap{
+  aspect-ratio:16/9;
+  width:100%;
+  position:relative;
+}
 
-    .right{ display:flex; align-items:center; gap:10px; }
-    .pill{
-      display:none;
-      align-items:center; gap:10px;
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.76);
-      font-size:12px;
-      white-space:nowrap;
-    }
-    .pill .dot{
-      width:8px; height:8px; border-radius:999px;
-      background: rgba(70,242,199,.95);
-      box-shadow: 0 0 0 6px rgba(70,242,199,.12);
-    }
-    @media (min-width: 980px){ .pill{ display:flex; } }
-
-    /* HERO */
-    .hero{
-      position:relative;
-      min-height: 78vh;
-      display:flex;
-      align-items:flex-end;
-      padding: 92px 18px 34px;
-      background:
-        radial-gradient(1000px 520px at 20% 25%, rgba(229,9,20,.22), transparent 60%),
-        radial-gradient(900px 520px at 80% 20%, rgba(255,46,166,.12), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.92)),
-        url("https://images.unsplash.com/photo-1541544181051-e46601f7f9be?auto=format&fit=crop&w=2200&q=70");
-      background-size: cover;
-      background-position: center;
-    }
-    /* Remplace l'image ci-dessus par: url("./cover.jpg") quand tu as ta cover */
-
-    .heroInner{
-      max-width: var(--max);
-      margin: 0 auto;
-      width:100%;
-    }
-    .label{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.38);
-      font-size:12px;
-      color: rgba(255,255,255,.78);
-    }
-    .label b{
-      color: rgba(255,255,255,.92);
-      letter-spacing:.10em;
-      text-transform: uppercase;
-      font-size:11px;
-    }
-    .title{
-      margin: 14px 0 0;
-      font-size: clamp(28px, 3.8vw, 54px);
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      max-width: 20ch;
-      text-shadow: 0 18px 80px rgba(0,0,0,.55);
-    }
-    .desc{
-      margin: 12px 0 0;
-      max-width: 64ch;
-      color: rgba(255,255,255,.76);
-      line-height: 1.5;
-      font-size: 14px;
-    }
-    .meta{
-      margin-top:10px;
-      display:flex; gap:10px; flex-wrap:wrap;
-      color: rgba(255,255,255,.62);
-      font-size: 12px;
-    }
-    .meta span{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      padding: 6px 10px;
-      border-radius:999px;
-    }
-
-    .actions{
-      margin-top: 16px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .btn{
-      appearance:none; border:none;
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-weight: 800;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      transition: transform .12s ease, filter .12s ease, background .12s ease;
-      user-select:none;
-    }
-    .btn:active{ transform: translateY(1px); }
-    .btnPlay{
-      background: rgba(255,255,255,.92);
-      color: rgba(0,0,0,.90);
-    }
-    .btnPlay:hover{ filter: brightness(1.06); }
-    .btnInfo{
-      background: rgba(255,255,255,.12);
-      color: rgba(255,255,255,.90);
-      border: 1px solid rgba(255,255,255,.14);
-    }
-    .btnInfo:hover{ background: rgba(255,255,255,.16); }
-
-    .icon{ width:18px; height:18px; display:inline-block; }
-
-    /* CONTENT ROWS */
-    .content{
-      padding: 18px 0 56px;
-      background: linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.62) 18%, rgba(0,0,0,.92));
-    }
-    .row{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px 18px 0;
-    }
-    .row h3{
-      margin:0 0 10px;
-      font-size: 14px;
-      letter-spacing:.02em;
-      color: rgba(255,255,255,.88);
-    }
-    .rail{
-      display:flex; gap:12px;
-      overflow:auto;
-      padding-bottom: 10px;
-      scroll-snap-type: x mandatory;
-    }
-    .rail::-webkit-scrollbar{ height: 8px; }
-    .rail::-webkit-scrollbar-thumb{
-      background: rgba(255,255,255,.12);
-      border-radius: 999px;
-    }
-    .card{
-      flex: 0 0 auto;
-      width: 220px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      overflow:hidden;
-      scroll-snap-align: start;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      transform-origin: center;
-      transition: transform .16s ease, border-color .16s ease, background .16s ease;
-      cursor:pointer;
-      position:relative;
-    }
-    .card:hover{
-      transform: scale(1.06);
-      border-color: rgba(229,9,20,.35);
-      background: rgba(255,255,255,.07);
-      z-index: 5;
-    }
-    .thumb{
-      height: 124px;
-      background-size: cover;
-      background-position:center;
-      position:relative;
-      background-image:
-        radial-gradient(600px 240px at 20% 20%, rgba(229,9,20,.22), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.75)),
-        url("https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=1200&q=70");
-    }
-    .thumb::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.72));
-    }
-    .badge{
-      position:absolute;
-      top:10px; left:10px;
-      background: rgba(0,0,0,.52);
-      border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.86);
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      backdrop-filter: blur(8px);
-      z-index: 2;
-    }
-    .cardBody{ padding: 12px; }
-    .cardBody strong{
-      font-size: 13px;
-      display:block;
-      margin-bottom: 4px;
-    }
-    .cardBody p{
-      margin:0;
-      color: rgba(255,255,255,.62);
-      font-size: 12px;
-      line-height:1.35;
-    }
-
-    /* INFO PANEL */
-    .infoPanel{
-      max-width: var(--max);
-      margin: 20px auto 0;
-      padding: 0 18px;
-    }
-    .panel{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      border-radius: 20px;
-      padding: 16px;
-      display:grid;
-      gap:10px;
-    }
-    .panelTitle{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-    }
-    .panelTitle strong{ font-size: 14px; }
-    .panelTitle small{ color: rgba(255,255,255,.58); }
-    .panel p{
-      margin:0;
-      color: rgba(255,255,255,.72);
-      font-size: 13px;
-      line-height:1.5;
-    }
-    .expired{
-      display:none;
-      border-left: 3px solid var(--accent);
-      padding-left: 12px;
-      color: rgba(255,255,255,.80);
-    }
-
-    /* MODAL PLAYER */
-    .modal{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.74);
-      backdrop-filter: blur(10px);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index: 999;
-      padding: 18px;
-    }
-    .modal.open{ display:flex; }
-    .modalCard{
-      width: min(980px, 100%);
-      border-radius: 20px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.25);
-      box-shadow: 0 26px 90px rgba(0,0,0,.65);
-      position:relative;
-    }
-    .modalTop{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 12px 14px;
-      background: rgba(0,0,0,.38);
-      border-bottom: 1px solid rgba(255,255,255,.10);
-    }
-    .modalTop strong{ font-size: 13px; color: rgba(255,255,255,.90); }
-    .close{
-      border:none;
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.92);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 999px;
-      padding: 8px 10px;
-      cursor:pointer;
-    }
-    .close:hover{ background: rgba(255,255,255,.12); }
-    .playerWrap{
-      aspect-ratio: 16/9;
-      width:100%;
-      background:#000;
-    }
-    iframe{ width:100%; height:100%; border:0; display:block; }
-
-    footer{
-      max-width: var(--max);
-      margin: 24px auto 0;
-      padding: 0 18px 40px;
-      color: rgba(255,255,255,.44);
-      font-size: 12px;
-    }
-  </style>
+/* === OPTION A MASQUE VIMEO === */
+.playerWrap::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:70px;
+  pointer-events:none;
+  background:linear-gradient(to top, rgba(0,0,0,.95), rgba(0,0,0,0));
+  z-index:5;
+}
+.playerWrap iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  position:relative;
+  z-index:1;
+}
+</style>
 </head>
 
 <body>
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="brand">
-      <div class="mark" aria-hidden="true"></div>
-      <div class="brandText">
-        <strong>serie-cafe</strong>
-        <span>Accès réservé clients</span>
-      </div>
-    </div>
 
-    <div class="nav">
-      <a href="#episodes">Épisodes</a>
-      <a href="#vip">Accès</a>
-    </div>
-
-    <div class="right">
-      <div class="pill" title="Chaque boisson débloque un accès personnel">
-        <span class="dot"></span>
-        <span><b>Accès</b> • 3 lectures max</span>
-      </div>
+<div class="topbar">
+  <div class="brand">
+    <div class="logo"></div>
+    <div>
+      <strong>SERIE-CAFE</strong><br>
+      <span>Épisode exclusif</span>
     </div>
   </div>
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="heroInner">
-      <div class="label"><b>Épisode 1</b> <span>• 4 min • Grey Area</span></div>
-      <h1 class="title">Grey Area</h1>
-      <p class="desc">
-        Vous venez de débloquer un mini-épisode exclusif. Cliquez sur Lecture (aucune redirection Vimeo).
-      </p>
-
-      <div class="meta">
-        <span>Format café</span>
-        <span>Overlay cinéma</span>
-        <span>QR friendly</span>
-      </div>
-
-      <div class="actions">
-        <button class="btn btnPlay" id="playBtn">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M9 7.5v9l8-4.5-8-4.5Z" fill="currentColor"/>
-          </svg>
-          Lecture
-        </button>
-
-        <button class="btn btnInfo" id="infoBtn">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 10v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M12 7h.01" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Plus d’infos
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ROWS -->
-  <section class="content" id="episodes">
-    <div class="row">
-      <h3>À continuer</h3>
-      <div class="rail">
-        <div class="card" id="ep1Card">
-          <div class="thumb" id="t1">
-            <div class="badge">Épisode 1</div>
-          </div>
-          <div class="cardBody">
-            <strong>Grey Area</strong>
-            <p>Lecture immédiate • Vimeo en embed</p>
-          </div>
-        </div>
-
-        <div class="card" onclick="locked()">
-          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1526481280695-3c687fd643ed?auto=format&fit=crop&w=1200&q=70')">
-            <div class="badge">Épisode 2</div>
-          </div>
-          <div class="cardBody">
-            <strong>Prochain épisode</strong>
-            <p>Débloque avec votre prochaine boisson</p>
-          </div>
-        </div>
-
-        <div class="card" onclick="locked()">
-          <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1520975958225-3a7d7b16fd87?auto=format&fit=crop&w=1200&q=70')">
-            <div class="badge">Épisode 3</div>
-          </div>
-          <div class="cardBody">
-            <strong>Prochain épisode</strong>
-            <p>Débloque au prochain scan</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="infoPanel" id="vip">
-      <div class="panel">
-        <div class="panelTitle">
-          <strong>Accès personnel</strong>
-          <small>anti-partage • 3 lectures max</small>
-        </div>
-
-        <div class="expired" id="expiredBox">
-          <strong>Pass épisode utilisé</strong>
-          <p style="margin-top:6px">
-            Cet accès a atteint sa limite. Si vous êtes bien la personne qui a acheté la boisson,
-            repassez au comptoir : on vous réactive un nouveau pass en 10 secondes.
-          </p>
-        </div>
-
-        <p>
-          Objectif : l’utilisateur reste dans votre univers (landing), et la vidéo se lit en overlay — pas de redirection vers Vimeo.
-        </p>
-      </div>
-    </div>
-
-    <footer>
-      © serie-cafe — Test salon (GitHub Pages + Vimeo embed)
-    </footer>
-  </section>
-
-  <!-- MODAL PLAYER -->
-  <div class="modal" id="modal" aria-hidden="true">
-    <div class="modalCard" role="dialog" aria-modal="true">
-      <div class="modalTop">
-        <strong id="modalTitle">Épisode 1 — Grey Area</strong>
-        <button class="close" id="closeBtn">Fermer ✕</button>
-      </div>
-      <div class="playerWrap">
-        <iframe
-          id="player"
-          src=""
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-          allowfullscreen
-          title="Grey Area">
-        </iframe>
-      </div>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="label">Épisode 1 • Grey Area</div>
+    <h1>Grey Area</h1>
+    <p class="desc">Un mini-épisode débloqué pour vous. Bon visionnage.</p>
+    <div class="actions">
+      <button class="btn btn-play" id="playBtn">Lecture</button>
     </div>
   </div>
+</section>
 
-  <script>
-    // ✅ Vimeo ID (votre vidéo)
-    const VIMEO_ID = "1088679244";
+<section class="row">
+  <h2>À continuer</h2>
+  <div class="cards">
+    <div class="card">Épisode 1</div>
+    <div class="card">Épisode 2 — Bientôt</div>
+    <div class="card">Épisode 3 — Bientôt</div>
+  </div>
+</section>
 
-    // Paramètres "clean"
-    // - autoplay=1 : démarre au clic (modal)
-    // - title/byline/portrait=0 : enlève l'habillage (si autorisé côté Vimeo)
-    // - autopause=0 : utile si vous mettez plusieurs vidéos sur la page plus tard
-    // - dnt=1 : privacy
-    const EMBED_SRC = `https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&autopause=0&title=0&byline=0&portrait=0&badge=0&dnt=1`;
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="modal-top">
+      <strong>Épisode 1 — Grey Area</strong>
+      <button class="close" id="closeBtn">Fermer ✕</button>
+    </div>
+    <div class="playerWrap">
+      <iframe id="player"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
 
-    const modal = document.getElementById("modal");
-    const player = document.getElementById("player");
-    const playBtn = document.getElementById("playBtn");
-    const closeBtn = document.getElementById("closeBtn");
-    const infoBtn = document.getElementById("infoBtn");
-    const ep1Card = document.getElementById("ep1Card");
+<script>
+const VIMEO_ID = "1088679244";
+const EMBED = `https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&title=0&byline=0&portrait=0&badge=0&dnt=1`;
 
-    function openModal(){
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden","false");
-      // Charger la vidéo seulement au moment du clic = plus rapide + plus "pro"
-      player.src = EMBED_SRC;
-      document.body.style.overflow = "hidden";
-    }
+const modal = document.getElementById("modal");
+const player = document.getElementById("player");
 
-    function closeModal(){
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden","true");
-      player.src = ""; // stop
-      document.body.style.overflow = "";
-    }
+document.getElementById("playBtn").onclick = () => {
+  modal.classList.add("open");
+  player.src = EMBED;
+  document.body.style.overflow="hidden";
+};
+document.getElementById("closeBtn").onclick = () => {
+  modal.classList.remove("open");
+  player.src = "";
+  document.body.style.overflow="";
+};
+modal.onclick = e => { if(e.target === modal){ modal.classList.remove("open"); player.src=""; document.body.style.overflow=""; } }
+</script>
 
-    playBtn.addEventListener("click", openModal);
-    ep1Card.addEventListener("click", openModal);
-    closeBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
-    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
-
-    infoBtn.addEventListener("click", ()=>{
-      document.getElementById("vip").scrollIntoView({behavior:"smooth"});
-    });
-
-    function locked(){
-      alert("🔒 Épisode verrouillé — débloquez-le avec votre prochaine boisson.");
-    }
-    window.locked = locked;
-
-    // Mode "pass expiré" : ajoutez ?status=expired à l’URL
-    const params = new URLSearchParams(window.location.search);
-    if(params.get("status") === "expired"){
-      document.getElementById("expiredBox").style.display = "block";
-    }
-
-    // Pour tester vos images locales si vous les uploadez
-    // document.querySelector(".hero").style.backgroundImage = 'url("./cover.jpg")';
-    // document.getElementById("t1").style.backgroundImage = 'url("./t1.jpg")';
-  </script>
 </body>
 </html>
