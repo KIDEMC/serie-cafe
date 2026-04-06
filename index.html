@@ -6,15 +6,6 @@
   <title>serie-cafe — Mini-série</title>
   <meta name="description" content="Accès réservé clients. Un mini-épisode exclusif débloqué avec votre boisson." />
 
-  <!--
-    ASTUCE IMAGES (pour tester VOS PHOTOS/FRAMES)
-    1) Uploadez vos images dans le repo (Add file -> Upload files)
-       ex: cover.jpg, t1.jpg, t2.jpg, t3.jpg
-    2) Remplacez dans le CSS/HTML:
-       - hero background: url("./cover.jpg")
-       - thumbnails: url("./t1.jpg") etc
-  -->
-
   <style>
     :root{
       --bg:#0b0b10;
@@ -24,8 +15,8 @@
       --stroke:rgba(255,255,255,.12);
       --radius:18px;
       --shadow:0 18px 60px rgba(0,0,0,.55);
-      --accent:#e50914;     /* vibe Netflix */
-      --accent2:#ff2ea6;    /* twist tropical */
+      --accent:#e50914;
+      --accent2:#ff2ea6;
       --max:1200px;
     }
 
@@ -39,7 +30,6 @@
       overflow-x:hidden;
     }
 
-    /* Topbar */
     .topbar{
       position:fixed; top:0; left:0; right:0;
       z-index:50;
@@ -105,7 +95,6 @@
     }
     @media (min-width: 980px){ .pill{ display:flex; } }
 
-    /* HERO */
     .hero{
       position:relative;
       min-height: 78vh;
@@ -120,7 +109,6 @@
       background-size: cover;
       background-position: center;
     }
-    /* Remplace l'image ci-dessus par: url("./cover.jpg") quand tu as ta cover */
 
     .heroInner{
       max-width: var(--max);
@@ -206,7 +194,6 @@
 
     .icon{ width:18px; height:18px; display:inline-block; }
 
-    /* CONTENT ROWS */
     .content{
       padding: 18px 0 56px;
       background: linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.62) 18%, rgba(0,0,0,.92));
@@ -293,7 +280,6 @@
       line-height:1.35;
     }
 
-    /* INFO PANEL */
     .infoPanel{
       max-width: var(--max);
       margin: 20px auto 0;
@@ -325,7 +311,6 @@
       color: rgba(255,255,255,.80);
     }
 
-    /* MODAL PLAYER */
     .modal{
       position:fixed; inset:0;
       background: rgba(0,0,0,.74);
@@ -367,6 +352,7 @@
       aspect-ratio: 16/9;
       width:100%;
       background:#000;
+      position:relative;
     }
     iframe{ width:100%; height:100%; border:0; display:block; }
 
@@ -381,7 +367,6 @@
 </head>
 
 <body>
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="brand">
       <div class="mark" aria-hidden="true"></div>
@@ -404,7 +389,6 @@
     </div>
   </div>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="heroInner">
       <div class="label"><b>Épisode 1</b> <span>• 5 min • Tropical Café </span></div>
@@ -439,7 +423,6 @@
     </div>
   </section>
 
-  <!-- ROWS -->
   <section class="content" id="episodes">
     <div class="row">
       <h3>À continuer</h3>
@@ -502,7 +485,6 @@
     </footer>
   </section>
 
-  <!-- MODAL PLAYER -->
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modalCard" role="dialog" aria-modal="true">
       <div class="modalTop">
@@ -513,24 +495,22 @@
         <iframe
           id="player"
           src=""
+          frameborder="0"
           allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen
-          title="Tropical cafe">
+          title="pour fb 2">
         </iframe>
       </div>
     </div>
   </div>
 
-  <script>
-    // ✅ Vimeo ID (votre vidéo)
-    const VIMEO_ID = "1170770261";
+  <script src="https://player.vimeo.com/api/player.js"></script>
 
-    // Paramètres "clean"
-    // - autoplay=1 : démarre au clic (modal)
-    // - title/byline/portrait=0 : enlève l'habillage (si autorisé côté Vimeo)
-    // - autopause=0 : utile si vous mettez plusieurs vidéos sur la page plus tard
-    // - dnt=1 : privacy
-    const EMBED_SRC = `https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&autopause=0&title=0&byline=0&portrait=0&badge=0&dnt=1`;
+  <script>
+    const VIMEO_ID = "1180488141";
+
+    const EMBED_SRC = `https://player.vimeo.com/video/${VIMEO_ID}?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479`;
 
     const modal = document.getElementById("modal");
     const player = document.getElementById("player");
@@ -542,7 +522,6 @@
     function openModal(){
       modal.classList.add("open");
       modal.setAttribute("aria-hidden","false");
-      // Charger la vidéo seulement au moment du clic = plus rapide + plus "pro"
       player.src = EMBED_SRC;
       document.body.style.overflow = "hidden";
     }
@@ -550,7 +529,7 @@
     function closeModal(){
       modal.classList.remove("open");
       modal.setAttribute("aria-hidden","true");
-      player.src = ""; // stop
+      player.src = "";
       document.body.style.overflow = "";
     }
 
@@ -569,15 +548,10 @@
     }
     window.locked = locked;
 
-    // Mode "pass expiré" : ajoutez ?status=expired à l’URL
     const params = new URLSearchParams(window.location.search);
     if(params.get("status") === "expired"){
       document.getElementById("expiredBox").style.display = "block";
     }
-
-    // Pour tester vos images locales si vous les uploadez
-    // document.querySelector(".hero").style.backgroundImage = 'url("./cover.jpg")';
-    // document.getElementById("t1").style.backgroundImage = 'url("./t1.jpg")';
   </script>
 </body>
 </html>
