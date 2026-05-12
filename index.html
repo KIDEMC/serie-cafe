@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>serie-cafe — Mini-série</title>
-  <meta name="description" content="Accès réservé clients. Un mini-épisode exclusif débloqué avec votre boisson." />
+  <title>Le Marché des Deux Mondes — Série Café</title>
+  <meta name="description" content="Une expérience Tropical French Kiss à regarder, siroter et partager." />
 
   <style>
     :root{
@@ -22,6 +22,7 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -31,9 +32,14 @@
     }
 
     .topbar{
-      position:fixed; top:0; left:0; right:0;
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
       z-index:50;
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap:14px;
       padding:14px 18px;
       background: linear-gradient(to bottom, rgba(0,0,0,.76), rgba(0,0,0,.18), transparent);
@@ -41,12 +47,15 @@
     }
 
     .brand{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       min-width:220px;
     }
 
     .mark{
-      width:34px; height:34px;
+      width:34px;
+      height:34px;
       border-radius:10px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       border:1px solid rgba(255,255,255,.14);
@@ -253,10 +262,10 @@
 
     .title{
       margin: 14px 0 0;
-      font-size: clamp(28px, 3.8vw, 54px);
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      max-width: 20ch;
+      font-size: clamp(31px, 4vw, 58px);
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      max-width: 18ch;
       text-shadow: 0 18px 80px rgba(0,0,0,.55);
     }
 
@@ -461,6 +470,7 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
+      flex-wrap:wrap;
     }
 
     .panelTitle strong{
@@ -476,13 +486,6 @@
       color: rgba(255,255,255,.72);
       font-size: 13px;
       line-height:1.5;
-    }
-
-    .expired{
-      display:none;
-      border-left: 3px solid var(--accent);
-      padding-left: 12px;
-      color: rgba(255,255,255,.80);
     }
 
     .modal{
@@ -569,32 +572,33 @@
     <div class="brand">
       <div class="mark" aria-hidden="true"></div>
       <div class="brandText">
-        <strong>serie-cafe</strong>
-        <span>Accès réservé clients</span>
+        <strong>Tropical French Kiss</strong>
+        <span>Expérience Série Café</span>
       </div>
     </div>
 
     <div class="nav">
       <a href="#episodes">Épisodes</a>
-      <a href="#vip">Accès</a>
+      <a href="#experience">Expériences événementielles</a>
     </div>
 
     <div class="right">
-      <div class="pill" title="Chaque boisson débloque un accès personnel">
+      <div class="pill" title="Expérience privée Tropical French Kiss">
         <span class="dot"></span>
-        <span><b>Accès</b> • Code secret</span>
+        <span><b>Accès</b> • Épisode privé</span>
       </div>
     </div>
   </div>
 
   <section class="accessScreen" id="access-screen">
     <div class="accessCard">
-      <div class="label"><b>Accès client</b> <span>• QR Série Café</span></div>
+      <div class="label"><b>Accès privé</b> <span>• Tropical French Kiss</span></div>
 
       <h1>Série Café</h1>
 
       <p>
-        Votre boisson cache un épisode. Entrez le code secret inscrit sur votre sticker pour débloquer la mini-série.
+        Votre expérience Tropical French Kiss commence ici.
+        Entrez le code inscrit sur votre boisson pour découvrir votre épisode privé.
       </p>
 
       <input
@@ -606,13 +610,13 @@
       />
 
       <button class="unlockBtn" onclick="unlockEpisode()">
-        Débloquer l’épisode
+        Débloquer mon épisode
       </button>
 
       <p id="error-message"></p>
 
       <p class="hint">
-        Exemple pour le test événement : AUBE01
+        Un accès offert avec votre création Tropical French Kiss.
       </p>
     </div>
   </section>
@@ -621,18 +625,19 @@
 
     <section class="hero">
       <div class="heroInner">
-        <div class="label"><b>Épisode 1</b> <span>• 5 min • Tropical Café</span></div>
+        <div class="label"><b>Épisode 1</b> <span>• Mini-série afro-fantasy • Tropical French Kiss</span></div>
 
-        <h1 class="title">Grey Area</h1>
+        <h1 class="title">Le Marché des Deux Mondes</h1>
 
         <p class="desc">
-          Vous venez de débloquer un mini-épisode exclusif. Cliquez sur Lecture.
+          Une mini-série exclusive à découvrir après votre création Tropical French Kiss.
+          Installez-vous, l’épisode commence.
         </p>
 
         <div class="meta">
-          <span>Format café</span>
-          <span>Overlay cinéma</span>
-          <span>QR friendly</span>
+          <span>Afro-fantasy</span>
+          <span>Expérience privée</span>
+          <span>À regarder, siroter et partager</span>
         </div>
 
         <div class="actions">
@@ -649,7 +654,7 @@
               <path d="M12 7h.01" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
               <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" stroke="currentColor" stroke-width="2"/>
             </svg>
-            Plus d’infos
+            Créer une expérience
           </button>
         </div>
       </div>
@@ -665,8 +670,8 @@
               <div class="badge">Épisode 1</div>
             </div>
             <div class="cardBody">
-              <strong>Tropical Café</strong>
-              <p>Lecture immédiate • Vimeo en embed</p>
+              <strong>Le Marché des Deux Mondes</strong>
+              <p>Votre accès privé est débloqué</p>
             </div>
           </div>
 
@@ -676,7 +681,7 @@
             </div>
             <div class="cardBody">
               <strong>Prochain épisode</strong>
-              <p>Débloque avec votre prochaine boisson</p>
+              <p>À débloquer lors d’une prochaine expérience Tropical French Kiss</p>
             </div>
           </div>
 
@@ -686,35 +691,39 @@
             </div>
             <div class="cardBody">
               <strong>Prochain épisode</strong>
-              <p>Débloque au prochain scan</p>
+              <p>Une nouvelle création, une nouvelle histoire à débloquer</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="infoPanel" id="vip">
+      <div class="infoPanel" id="experience">
         <div class="panel">
           <div class="panelTitle">
-            <strong>Accès personnel</strong>
-            <small>QR code + code secret</small>
-          </div>
-
-          <div class="expired" id="expiredBox">
-            <strong>Pass épisode utilisé</strong>
-            <p style="margin-top:6px">
-              Cet accès a atteint sa limite. Si vous êtes bien la personne qui a acheté la boisson,
-              repassez au comptoir : on vous réactive un nouveau pass en 10 secondes.
-            </p>
+            <strong>Animations florales & expériences tropicales</strong>
+            <small>mariages • entreprises • célébrations</small>
           </div>
 
           <p>
-            Objectif : l’utilisateur reste dans votre univers Série Café, et la vidéo se lit en overlay — pas de redirection vers Vimeo.
+            Tropical French Kiss transforme vos événements en expériences à regarder, siroter et partager.
+          </p>
+
+          <p>
+            Nous imaginons des animations originales autour des fleurs tropicales, des fruits frais,
+            des noix de coco personnalisées et des boissons signature pour donner à chaque événement
+            une présence visuelle, sensorielle et mémorable.
+          </p>
+
+          <p>
+            Mariage, événement d’entreprise, lancement de marque, brunch, festival ou célébration privée :
+            chaque création peut être personnalisée avec une mise en scène florale élégante,
+            une boisson signature et une expérience digitale exclusive à débloquer.
           </p>
         </div>
       </div>
 
       <footer>
-        © serie-cafe — Test salon / événement — GitHub Pages + Vimeo embed
+        © Tropical French Kiss — Expériences florales, fruitées et narratives pour vos événements.
       </footer>
     </section>
   </main>
@@ -722,7 +731,7 @@
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modalCard" role="dialog" aria-modal="true">
       <div class="modalTop">
-        <strong id="modalTitle">Épisode 1 — Tropical Café</strong>
+        <strong id="modalTitle">Épisode 1 — Le Marché des Deux Mondes</strong>
         <button class="close" id="closeBtn">Fermer ✕</button>
       </div>
 
@@ -734,7 +743,7 @@
           allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen
-          title="Épisode Série Café">
+          title="Épisode Série Café — Le Marché des Deux Mondes">
         </iframe>
       </div>
     </div>
@@ -785,14 +794,6 @@
       if(savedCode && validCodes[savedCode]){
         showSite();
       }
-
-      const params = new URLSearchParams(window.location.search);
-      if(params.get("status") === "expired"){
-        const expiredBox = document.getElementById("expiredBox");
-        if(expiredBox){
-          expiredBox.style.display = "block";
-        }
-      }
     });
 
     const modal = document.getElementById("modal");
@@ -833,11 +834,11 @@
     });
 
     infoBtn.addEventListener("click", function(){
-      document.getElementById("vip").scrollIntoView({behavior:"smooth"});
+      document.getElementById("experience").scrollIntoView({behavior:"smooth"});
     });
 
     function locked(){
-      alert("🔒 Épisode verrouillé — débloquez-le avec votre prochaine boisson.");
+      alert("🔒 Prochain épisode à débloquer lors d’une nouvelle expérience Tropical French Kiss.");
     }
 
     window.locked = locked;
