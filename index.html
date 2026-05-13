@@ -31,6 +31,10 @@
       overflow-x:hidden;
     }
 
+    .hidden{
+      display:none !important;
+    }
+
     .topbar{
       position:fixed;
       top:0;
@@ -488,6 +492,84 @@
       line-height:1.5;
     }
 
+    .after-episode-cta{
+      max-width: 760px;
+      margin: 46px auto 22px auto;
+      padding: 34px 24px;
+      text-align: center;
+      color: white;
+    }
+
+    .after-episode-cta .cta-question{
+      font-size: 18px;
+      margin: 0 0 10px;
+      opacity: 0.86;
+    }
+
+    .after-episode-cta h2{
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.15;
+      margin: 0 0 28px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .cta-form-button{
+      padding: 16px 30px;
+      border: none;
+      border-radius: 999px;
+      background: white;
+      color: #111;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+    }
+
+    .cta-form-button:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+      opacity: 0.94;
+    }
+
+    .lead-form-section{
+      max-width: 820px;
+      margin: 30px auto 80px auto;
+      padding: 30px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: white;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .lead-form-section h2{
+      font-size: 28px;
+      margin: 0 0 12px;
+      font-weight: 900;
+    }
+
+    .lead-form-section p{
+      max-width: 640px;
+      margin: 0 auto 24px auto;
+      font-size: 16px;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .lead-form-section iframe{
+      width:100%;
+      height:1050px;
+      border:0;
+      display:block;
+      border-radius: 20px;
+      background: white;
+    }
+
     .modal{
       position:fixed;
       inset:0;
@@ -549,7 +631,7 @@
       position:relative;
     }
 
-    iframe{
+    .playerWrap iframe{
       width:100%;
       height:100%;
       border:0;
@@ -562,6 +644,42 @@
       padding: 0 18px 40px;
       color: rgba(255,255,255,.44);
       font-size: 12px;
+    }
+
+    @media (max-width: 700px){
+      .after-episode-cta{
+        margin: 36px 14px 20px 14px;
+        padding: 28px 18px;
+      }
+
+      .after-episode-cta h2{
+        font-size: 26px;
+      }
+
+      .cta-form-button{
+        width: 100%;
+        max-width: 360px;
+        padding: 16px 20px;
+        font-size: 15px;
+      }
+
+      .lead-form-section{
+        margin: 28px 14px 60px 14px;
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .lead-form-section h2{
+        font-size: 24px;
+      }
+
+      .lead-form-section p{
+        font-size: 15px;
+      }
+
+      .lead-form-section iframe{
+        height: 1150px;
+      }
     }
   </style>
 </head>
@@ -722,6 +840,36 @@
         </div>
       </div>
 
+      <section id="after-episode-cta" class="after-episode-cta hidden">
+        <p class="cta-question">Vous voulez connaître la suite ?</p>
+
+        <h2>Débloquez les prochains événements Tropical French Kiss.</h2>
+
+        <button onclick="afficherFormulaire()" class="cta-form-button">
+          Débloquer la suite de l’aventure
+        </button>
+      </section>
+
+      <section id="formulaire-communaute" class="lead-form-section hidden">
+        <h2>Recevoir la suite de l’épisode 🌴🥥</h2>
+
+        <p>
+          Le prochain épisode sera disponible lors de nos prochains événements.
+          Laissez votre WhatsApp ou votre e-mail pour recevoir l’adresse en avant-première,
+          les prochaines dégustations et les expériences Série Café.
+        </p>
+
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLSetPqWcQqcCV3J-rp8TvLN8nAa5Fds173mAVPdHaPIKL2pxpQ/viewform?embedded=true"
+          width="100%" 
+          height="1050" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0">
+          Chargement…
+        </iframe>
+      </section>
+
       <footer>
         © Tropical French Kiss — Expériences florales, fruitées et narratives pour vos événements.
       </footer>
@@ -766,10 +914,27 @@
     const codeInput = document.getElementById("secret-code");
     const errorMessage = document.getElementById("error-message");
 
+    const modal = document.getElementById("modal");
+    const player = document.getElementById("player");
+    const playBtn = document.getElementById("playBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const infoBtn = document.getElementById("infoBtn");
+    const ep1Card = document.getElementById("ep1Card");
+
+    const afterEpisodeCta = document.getElementById("after-episode-cta");
+    const formulaire = document.getElementById("formulaire-communaute");
+
+    let vimeoPlayer = null;
+    let episodeWasOpened = false;
+
     function showSite(){
       accessScreen.style.display = "none";
       siteContent.style.display = "block";
       window.scrollTo(0, 0);
+
+      if(localStorage.getItem("serieCafeAfterEpisodeCTA") === "true"){
+        showAfterEpisodeCTA(false);
+      }
     }
 
     function unlockEpisode(){
@@ -796,40 +961,70 @@
       }
     });
 
-    const modal = document.getElementById("modal");
-    const player = document.getElementById("player");
-    const playBtn = document.getElementById("playBtn");
-    const closeBtn = document.getElementById("closeBtn");
-    const infoBtn = document.getElementById("infoBtn");
-    const ep1Card = document.getElementById("ep1Card");
-
     function openModal(){
+      episodeWasOpened = true;
       modal.classList.add("open");
       modal.setAttribute("aria-hidden","false");
       player.src = EMBED_SRC;
       document.body.style.overflow = "hidden";
+
+      setTimeout(function(){
+        if(window.Vimeo){
+          vimeoPlayer = new Vimeo.Player(player);
+
+          vimeoPlayer.on("ended", function(){
+            showAfterEpisodeCTA(true);
+            closeModal(false);
+          });
+        }
+      }, 500);
     }
 
-    function closeModal(){
+    function closeModal(shouldReveal = true){
       modal.classList.remove("open");
       modal.setAttribute("aria-hidden","true");
       player.src = "";
       document.body.style.overflow = "";
+
+      vimeoPlayer = null;
+
+      if(shouldReveal && episodeWasOpened){
+        showAfterEpisodeCTA(true);
+      }
+    }
+
+    function showAfterEpisodeCTA(scrollToBlock = true){
+      afterEpisodeCta.classList.remove("hidden");
+      localStorage.setItem("serieCafeAfterEpisodeCTA", "true");
+
+      if(scrollToBlock){
+        setTimeout(function(){
+          afterEpisodeCta.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 350);
+      }
+    }
+
+    function afficherFormulaire(){
+      formulaire.classList.remove("hidden");
+      formulaire.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     playBtn.addEventListener("click", openModal);
     ep1Card.addEventListener("click", openModal);
-    closeBtn.addEventListener("click", closeModal);
+
+    closeBtn.addEventListener("click", function(){
+      closeModal(true);
+    });
 
     modal.addEventListener("click", function(e){
       if(e.target === modal){
-        closeModal();
+        closeModal(true);
       }
     });
 
     window.addEventListener("keydown", function(e){
       if(e.key === "Escape"){
-        closeModal();
+        closeModal(true);
       }
     });
 
@@ -842,6 +1037,7 @@
     }
 
     window.locked = locked;
+    window.afficherFormulaire = afficherFormulaire;
   </script>
 </body>
 </html>
